@@ -1,0 +1,27 @@
+{
+	"name": "spotify-taste-comparison",
+	"version": "1.0.0",
+	"description": "Spotify taste comparison",
+	"main": "server.js",
+	"scripts": {
+		"client-install": "npm install --prefix client",
+		"start": "node server.js",
+		"server": "nodemon server.js",
+		"client": "npm start --prefix client",
+		"dev": "concurrently \"npm run server\" \"npm run client\""
+	},
+	"author": "David Hao",
+	"license": "MIT",
+	"dependencies": {
+		"axios": "^0.19.2",
+		"concurrently": "^5.2.0",
+		"cookie-parser": "^1.4.5",
+		"crypto-random-string": "^3.2.0",
+		"express": "^4.17.1",
+		"mongoose": "^5.9.25",
+		"querystring": "^0.2.0"
+	},
+	"devDependencies": {
+		"nodemon": "^2.0.4"
+	}
+}
