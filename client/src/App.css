@@ -1,1 +1,22 @@
+.login-btn {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 25rem;
+	background-color: #1db954;
+}
 
+.btn-div {
+	display: flex;
+	justify-content: center;
+}
+
+.songs {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.song {
+	text-align: center;
+}

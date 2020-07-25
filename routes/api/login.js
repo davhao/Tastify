@@ -95,7 +95,7 @@ router.get('/callback', async (req, res) => {
 			);
 			const { access_token, refresh_token } = spotifyRes.data;
 			res.redirect(
-				'http://localhost:3000/' +
+				'http://localhost:3000/?' +
 					querystring.stringify({
 						access_token  : access_token,
 						refresh_token : refresh_token
@@ -109,30 +109,6 @@ router.get('/callback', async (req, res) => {
 					})
 			);
 		}
-	}
-});
-
-// @route POST api/users
-// @desc Create A Post
-// @access Private
-router.post('/', async (req, res) => {
-	const newUser = new User({
-		id : req.body.id
-	});
-
-	user = await newUser.save();
-	res.json(user);
-});
-
-// @route DELETE api/users
-// @desc Delete A User
-// @access Private
-router.delete('/:id', async (req, res) => {
-	try {
-		await User.findById(req.params.id).deleteOne();
-		res.json({ success: true });
-	} catch (error) {
-		res.status(404).json({ success: false });
 	}
 });
 
