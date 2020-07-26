@@ -43,7 +43,6 @@ export default class Songs extends Component {
 		// Send songs to database
 		const res = await axios.post('/api/users', body, config);
 		this.props.updateMongoID(res.data._id);
-		console.log(res.data._id);
 	}
 
 	render() {
