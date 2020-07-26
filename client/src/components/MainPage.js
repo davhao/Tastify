@@ -6,18 +6,33 @@ import Songs from './Songs';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
+import CreateLinkButton from './CreateLinkButton';
 
 const qs = require('query-string');
 
 export default class MainPage extends Component {
 	state = {
-		access_token : qs.parse(this.props.location.search).access_token,
-		showSongs    : false
+		access_token  : qs.parse(this.props.location.search).access_token,
+		showSongs     : false,
+		mongoID       : null,
+		sharedMongoID : qs.parse(this.props.location.search).id
 	};
 
 	showSongsHandler = () => {
 		this.setState({
 			showSongs : true
+		});
+	};
+
+	updateMongoID = (mongoID) => {
+		this.setState({
+			mongoID : mongoID
+		});
+	};
+
+	showLinkButtonHandler = () => {
+		this.setState({
+			showLinkButton : true
 		});
 	};
 
@@ -27,8 +42,13 @@ export default class MainPage extends Component {
 				<div>
 					<AppNavbar />
 				</div>
+				<div className="btn-div">
+					{this.state.mongoID ? <CreateLinkButton mongoID={this.state.mongoID} /> : null}
+				</div>
 				<div className="songs">
-					{this.state.showSongs ? <Songs access_token={this.state.access_token} /> : null}
+					{this.state.showSongs ? (
+						<Songs access_token={this.state.access_token} updateMongoID={this.updateMongoID} />
+					) : null}
 				</div>
 				<div className="btn-div">
 					{this.state.access_token && !this.state.showSongs ? (

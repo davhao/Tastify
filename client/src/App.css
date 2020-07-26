@@ -1,9 +1,17 @@
-.login-btn {
+.main-btn {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin-top: 25rem;
 	background-color: #1db954;
+	border: 0px solid transparent;
+}
+
+.main-btn:hover {
+	background-color: #1ed760;
+}
+
+.margined-btn {
+	margin-top: 25rem;
 }
 
 .btn-div {

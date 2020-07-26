@@ -11,6 +11,9 @@ export default class Songs extends Component {
 	async componentDidMount() {
 		const token = this.props.access_token;
 		for (let i = 0; i <= 49; i += 49) {
+			if (this.state.songs.length) {
+				this.state.songs.pop();
+			}
 			const config = {
 				headers : {
 					Accept         : 'application/json',
@@ -26,6 +29,21 @@ export default class Songs extends Component {
 			const response = await axios.get('https://api.spotify.com/v1/me/top/tracks', config);
 			this.setState({ loading: false, songs: this.state.songs.concat(response.data.items) });
 		}
+
+		// Headers
+		const config = {
+			headers : {
+				'Content-Type' : 'application/json'
+			}
+		};
+
+		// Request Body
+		const body = JSON.stringify({ songs: this.state.songs });
+
+		// Send songs to database
+		const res = await axios.post('/api/users', body, config);
+		this.props.updateMongoID(res.data._id);
+		console.log(res.data._id);
 	}
 
 	render() {

@@ -3,11 +3,11 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const UserSchema = new Schema({
-	id   : {
-		type     : String,
+	songs : {
+		type     : Array,
 		required : true
 	},
-	date : {
+	date  : {
 		type    : Date,
 		default : Date.now
 	}

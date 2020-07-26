@@ -103,7 +103,7 @@ router.get('/callback', async (req, res) => {
 			);
 		} catch (error) {
 			res.redirect(
-				'/#' +
+				'http://localhost:3000/?' +
 					querystring.stringify({
 						error : 'invalid_token'
 					})

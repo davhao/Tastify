@@ -2,11 +2,12 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 const login = require('./routes/api/login');
+const users = require('./routes/api/users');
 
 const app = express();
 
 // Bodyparser middleware
-app.use(express.json());
+app.use(express.json({ limit: '50mb' }));
 
 // DB Config
 const db = require('./config/keys').mongoURI;
@@ -23,6 +24,7 @@ mongoose
 
 // Use Routes
 app.use('/api/login', login);
+app.use('/api/users', users);
 
 const port = process.env.PORT || 5000;
 

@@ -4,7 +4,7 @@ import { Button } from 'reactstrap';
 export default class GenerateButton extends Component {
 	render() {
 		return (
-			<Button color="success" className="login-btn" onClick={this.props.showSongsHandler}>
+			<Button className="main-btn margined-btn" onClick={this.props.showSongsHandler}>
 				Get Top Songs
 			</Button>
 		);
