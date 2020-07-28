@@ -8,13 +8,18 @@ export default class MutualSongs extends Component {
 	};
 
 	componentDidMount() {
+		const songs = [];
 		this.props.userSongs.forEach((song, name) => {
 			if (this.props.otherUserSongs.has(name)) {
-				this.setState({
-					songs : this.state.songs.push(song)
-				});
+				songs.push(song);
 			}
 		});
+		this.setState({
+			songs : songs
+		});
+	}
+
+	render() {
 		const songsJsx = this.state.songs.map((song, i) => (
 			<div key={song.id} className="song">
 				<div>{i + 1}.</div>
@@ -24,12 +29,7 @@ export default class MutualSongs extends Component {
 				<img src={song.album.images[0].url} alt="" />
 			</div>
 		));
-		this.setState({
-			songsJsx : songsJsx
-		});
-	}
 
-	render() {
-		return <div>{this.state.songsJsx}</div>;
+		return <div>{songsJsx}</div>;
 	}
 }
