@@ -30,7 +30,7 @@ export default class MainPage extends Component {
 		if (sharedMongoID) {
 			localStorage.setItem('sharedMongoID', JSON.stringify({ sharedMongoID: sharedMongoID }));
 		}
-		else {
+		else if (localStorage.getItem('sharedMongoID')) {
 			this.setState({
 				sharedMongoID : JSON.parse(localStorage.getItem('sharedMongoID')).sharedMongoID
 			});
@@ -98,7 +98,7 @@ export default class MainPage extends Component {
 						) : null}
 					</div>
 					<div className="column">
-						{this.state.otherUserSongs ? (
+						{this.state.otherUserSongs && this.state.userSongs ? (
 							<MutualSongs
 								updateMutualSongs={this.updateMutualSongs}
 								userSongs={this.state.userSongs}
