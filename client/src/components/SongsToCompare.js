@@ -12,16 +12,21 @@ export default class SongsToCompare extends Component {
 		const mongoID = this.props.sharedMongoID;
 		const res = await axios.get(`api/users/${mongoID}`);
 		this.setState({ loading: false, songs: res.data.result.songs });
+
+		// Update Other User Songs State in Main Page
+		let songMap = new Map();
+		this.state.songs.forEach((song) => songMap.set(song.name, song));
+		this.props.updateOtherUserSongs(songMap);
 	}
 
 	render() {
 		const songsJsx = this.state.songs.map((song, i) => (
 			<div key={song.id} className="song">
 				<div>{i + 1}.</div>
-				<div>{song.artists[0].name}</div>
-				<div>{song.album.name}</div>
-				<div>{song.name}</div>
-				<img src={song.album.images[0].url} width="100" alt="" />
+				<div className="caption">{song.artists[0].name}</div>
+				{/* <div className='caption'>{song.album.name}</div> */}
+				<div className="caption">{song.name}</div>
+				<img src={song.album.images[0].url} alt="" />
 			</div>
 		));
 
