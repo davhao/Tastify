@@ -52,11 +52,12 @@ export default class Songs extends Component {
 	render() {
 		const songsJsx = this.state.songs.map((song, i) => (
 			<div key={song.id} className="song">
-				<div>{i + 1}.</div>
-				<div className="caption">{song.artists[0].name}</div>
-				{/* <div className='caption'>{song.album.name}</div> */}
-				<div className="caption">{song.name}</div>
-				<img src={song.album.images[0].url} alt="" />
+				<div class="image">
+					<img src={song.album.images[0].url} alt="" />
+					<div class="number">{i + 1}.</div>
+					<div class="artist-name">{song.artists[0].name}</div>
+					<div class="song-title">{song.name}</div>
+				</div>
 			</div>
 		));
 
