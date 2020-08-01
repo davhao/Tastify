@@ -7,16 +7,18 @@ export default class MutualSongs extends Component {
 		songsJsx : null
 	};
 
-	componentDidMount() {
-		const songs = [];
-		this.props.userSongs.forEach((song, name) => {
-			if (this.props.otherUserSongs.has(name)) {
-				songs.push(song);
-			}
-		});
-		this.setState({
-			songs : songs
-		});
+	componentDidUpdate(prevProps, prevState) {
+		if (prevProps !== this.props) {
+			const songs = [];
+			this.props.userSongs.forEach((song, id) => {
+				if (this.props.otherUserSongs.has(id)) {
+					songs.push(song);
+				}
+			});
+			this.setState({
+				songs : songs
+			});
+		}
 	}
 
 	render() {

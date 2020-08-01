@@ -31,7 +31,7 @@ export default class Songs extends Component {
 		}
 		// Update User Songs State in Main Page
 		let songMap = new Map();
-		this.state.songs.forEach((song) => songMap.set(song.name, song));
+		this.state.songs.forEach((song) => songMap.set(song.id, song));
 		this.props.updateUserSongs(songMap);
 
 		// Headers

@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
 import AppNavbar from './AppNavbar';
 import LoginButton from './LoginButton';
-import GenerateButton from './GenerateButton';
-import Songs from './Songs';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Row, Col, Button, ButtonGroup } from 'reactstrap';
 import '../App.css';
 import CreateLinkButton from './CreateLinkButton';
-import CompareButton from './CompareButton';
-import SongsToCompare from './SongsToCompare';
-import MutualSongs from './MutualSongs';
+import CompareView from './CompareView';
+import SingleView from './SingleView';
+import DurationDropdown from './DurationDropdown';
+import DataTypeDropdown from './DataTypeDropdown';
 
 const qs = require('query-string');
 
@@ -23,17 +21,19 @@ export default class MainPage extends Component {
 		sharedMongoID  : null,
 		userSongs      : null,
 		otherUserSongs : null,
-		mutualSongs    : null
+		mutualSongs    : null,
+		view           : 'single'
 	};
 
 	componentDidMount = () => {
 		const sharedMongoID = qs.parse(this.props.location.search).id;
 		if (sharedMongoID) {
-			localStorage.setItem('sharedMongoID', JSON.stringify({ sharedMongoID: sharedMongoID }));
+			sessionStorage.setItem('sharedMongoID', JSON.stringify({ sharedMongoID: sharedMongoID }));
 		}
-		else if (localStorage.getItem('sharedMongoID')) {
+		else if (sessionStorage.getItem('sharedMongoID')) {
 			this.setState({
-				sharedMongoID : JSON.parse(localStorage.getItem('sharedMongoID')).sharedMongoID
+				sharedMongoID : JSON.parse(sessionStorage.getItem('sharedMongoID')).sharedMongoID,
+				view          : 'compare'
 			});
 		}
 	};
@@ -77,6 +77,16 @@ export default class MainPage extends Component {
 		});
 	};
 
+	setView = (view) => {
+		this.setState({
+			view : view
+		});
+	};
+
+	setDuration = (duration) => {
+		console.log(duration);
+	};
+
 	render() {
 		return (
 			<div>
@@ -84,73 +94,42 @@ export default class MainPage extends Component {
 					<AppNavbar />
 				</div>
 
-				{/* <div className="btn-grp">
-					{this.state.showSongs ? (
-						<ButtonGroup>
-							<Button>Your Songs</Button>
-							<Button>Mutual Songs</Button>
-							<Button>Their Songs</Button>
-						</ButtonGroup>
-					) : null}
-				</div> */}
+				<div className="btn-drpdwns">
+					<DurationDropdown setDuration={this.setDuration} />
+					<DataTypeDropdown />
+				</div>
 
 				<div className="btn-div">
 					{this.state.mongoID ? <CreateLinkButton mongoID={this.state.mongoID} /> : null}
 				</div>
 
-				<div className="song-row-div">
-					<Row className="song-row">
-						<Col className="sm">
-							{this.state.showSongs || this.state.compareSongs ? (
-								<div>
-									<div className="col-title">Your Songs</div>
-									<Songs
-										access_token={this.state.access_token}
-										updateMongoID={this.updateMongoID}
-										updateUserSongs={this.updateUserSongs}
-									/>
-								</div>
-							) : null}
-						</Col>
-						<Col>
-							{this.state.otherUserSongs && this.state.userSongs ? (
-								<div>
-									<div className="col-title">Mutual Songs</div>
-									<MutualSongs
-										updateMutualSongs={this.updateMutualSongs}
-										userSongs={this.state.userSongs}
-										otherUserSongs={this.state.otherUserSongs}
-									/>
-								</div>
-							) : null}
-						</Col>
-						<Col>
-							{this.state.compareSongs ? (
-								<div>
-									<div className="col-title">Their Songs</div>
-									<SongsToCompare
-										sharedMongoID={this.state.sharedMongoID}
-										updateOtherUserSongs={this.updateOtherUserSongs}
-									/>
-								</div>
-							) : null}
-						</Col>
-					</Row>
+				<div>
+					{this.state.access_token && this.state.view === 'single' ? (
+						<SingleView
+							access_token={this.state.access_token}
+							updateMongoID={this.updateMongoID}
+							updateUserSongs={this.updateUserSongs}
+						/>
+					) : null}
 				</div>
-				<div className="btn-div">
-					<div className="btn">
-						{this.state.access_token && !this.state.showSongs ? (
-							<GenerateButton showSongsHandler={this.showSongsHandler} />
-						) : null}
-					</div>
-					<div className="btn">
-						{this.state.sharedMongoID && this.state.access_token && !this.state.showSongs ? (
-							<CompareButton compareSongsHandler={this.compareSongsHandler} />
-						) : null}
-					</div>
+				<div>
+					{this.state.view === 'compare' ? (
+						<CompareView
+							showSongs={this.state.showSongs}
+							compareSongs={this.state.compareSongs}
+							access_token={this.state.access_token}
+							updateMongoID={this.updateMongoID}
+							updateUserSongs={this.updateUserSongs}
+							otherUserSongs={this.state.otherUserSongs}
+							userSongs={this.state.userSongs}
+							updateMutualSongs={this.updateMutualSongs}
+							sharedMongoID={this.state.sharedMongoID}
+							updateOtherUserSongs={this.updateOtherUserSongs}
+						/>
+					) : null}
 				</div>
 
-				<div className="btn-div">{!this.state.access_token ? <LoginButton /> : null}</div>
+				<div className="login-btn">{!this.state.access_token ? <LoginButton /> : null}</div>
 			</div>
 		);
 	}

@@ -5,7 +5,7 @@ class LoginButton extends Component {
 	render() {
 		return (
 			<Button
-				className="main-btn margined-btn"
+				className="main-btn"
 				onClick={(event) => (window.location.href = 'http://localhost:5000/api/login')}
 			>
 				Log In With Spotify
