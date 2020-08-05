@@ -38,42 +38,9 @@ export default class MainPage extends Component {
 		}
 	};
 
-	showSongsHandler = () => {
-		this.setState({
-			showSongs : true
-		});
-	};
-
-	compareSongsHandler = () => {
-		this.setState({
-			compareSongs : true
-		});
-	};
-
 	updateMongoID = (mongoID) => {
 		this.setState({
 			mongoID : mongoID
-		});
-	};
-
-	// HashMap of User's Songs
-	updateUserSongs = (songs) => {
-		this.setState({
-			userSongs : songs
-		});
-	};
-
-	// HashMap of Other User's Songs
-	updateOtherUserSongs = (songs) => {
-		this.setState({
-			otherUserSongs : songs
-		});
-	};
-
-	// Array of Songs Mutual To Both Users
-	updateMutualSongs = (songs) => {
-		this.setState({
-			mutualSongs : songs
 		});
 	};
 
@@ -99,8 +66,8 @@ export default class MainPage extends Component {
 					<DataTypeDropdown />
 				</div>
 
-				<div className="btn-div">
-					{this.state.mongoID ? <CreateLinkButton mongoID={this.state.mongoID} /> : null}
+				<div className="link-btn-wrapper">
+					<CreateLinkButton mongoID={this.state.mongoID} />
 				</div>
 
 				<div>
@@ -115,16 +82,9 @@ export default class MainPage extends Component {
 				<div>
 					{this.state.view === 'compare' ? (
 						<CompareView
-							showSongs={this.state.showSongs}
-							compareSongs={this.state.compareSongs}
 							access_token={this.state.access_token}
 							updateMongoID={this.updateMongoID}
-							updateUserSongs={this.updateUserSongs}
-							otherUserSongs={this.state.otherUserSongs}
-							userSongs={this.state.userSongs}
-							updateMutualSongs={this.updateMutualSongs}
 							sharedMongoID={this.state.sharedMongoID}
-							updateOtherUserSongs={this.updateOtherUserSongs}
 						/>
 					) : null}
 				</div>

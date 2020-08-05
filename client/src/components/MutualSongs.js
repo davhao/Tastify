@@ -3,36 +3,42 @@ import '../App.css';
 
 export default class MutualSongs extends Component {
 	state = {
-		songs    : [],
-		songsJsx : null
+		mutualData : null
 	};
 
-	componentDidUpdate(prevProps, prevState) {
-		if (prevProps !== this.props) {
-			const songs = [];
-			this.props.userSongs.forEach((song, id) => {
-				if (this.props.otherUserSongs.has(id)) {
-					songs.push(song);
-				}
-			});
-			this.setState({
-				songs : songs
-			});
-		}
+	componentDidMount() {
+		const mutualData = [];
+		const dataMap = new Map();
+		const data = JSON.parse(sessionStorage.getItem('tracks')).short_term_tracks;
+		data.forEach((item) => dataMap.set(item.id, item));
+		const compareData = JSON.parse(sessionStorage.getItem('compare_tracks')).short_term_tracks;
+		compareData.forEach((item) => {
+			if (dataMap.has(item.id)) {
+				mutualData.push(item);
+			}
+		});
+		this.setState({
+			mutualData : mutualData
+		});
 	}
 
 	render() {
-		const songsJsx = this.state.songs.map((song, i) => (
-			<div key={song.id} className="song">
-				<div class="image">
-					<img src={song.album.images[0].url} alt="" />
-					<div class="number">{i + 1}.</div>
-					<div class="artist-name">{song.artists[0].name}</div>
-					<div class="song-title">{song.name}</div>
+		if (this.state.mutualData) {
+			const mutualJSX = this.state.mutualData.map((song, i) => (
+				<div key={song.id} className="song">
+					<div className="image">
+						<img src={song.album.images[0].url} alt="" />
+						<div className="number">{i + 1}.</div>
+						<div className="artist-name">{song.artists[0].name}</div>
+						<div className="song-title">{song.name}</div>
+					</div>
 				</div>
-			</div>
-		));
+			));
 
-		return <div>{songsJsx}</div>;
+			return <div>{mutualJSX}</div>;
+		}
+		else {
+			return null;
+		}
 	}
 }

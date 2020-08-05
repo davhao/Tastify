@@ -19,10 +19,10 @@ export default function DataTypeDropdown(props) {
 	};
 
 	return (
-		<div className="btn-drpdwn">
+		<div className="btn-drpdwn-wrapper">
 			<div>
 				<ButtonDropdown isOpen={dropdownOpen} toggle={toggle}>
-					<DropdownToggle caret size="sm">
+					<DropdownToggle className="btn-drpdwn" caret size="sm">
 						{selection}
 					</DropdownToggle>
 					<DropdownMenu>

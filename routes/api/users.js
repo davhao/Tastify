@@ -9,7 +9,12 @@ const User = require('../../models/User');
 // @access Public
 router.post('/', async (req, res) => {
 	const newUser = new User({
-		songs : req.body.songs
+		short_term_tracks   : req.body.short_term_tracks,
+		medium_term_tracks  : req.body.medium_term_tracks,
+		long_term_tracks    : req.body.long_term_tracks,
+		short_term_artists  : req.body.short_term_artists,
+		medium_term_artists : req.body.medium_term_artists,
+		long_term_artists   : req.body.long_term_artists
 	});
 
 	user = await newUser.save();
