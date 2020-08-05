@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import '../App.css';
 const axios = require('axios');
 
-export default class Songs extends Component {
+export default class Data extends Component {
 	state = {
-		mongoID : null
+		mongoID : null,
+		loading : true
 	};
 
 	async componentDidMount() {
@@ -31,6 +32,10 @@ export default class Songs extends Component {
 				long_term_artists   : long_term_artists
 			})
 		);
+
+		this.setState({
+			loading : false
+		});
 
 		// Headers
 		const config = {
@@ -84,23 +89,70 @@ export default class Songs extends Component {
 	}
 
 	render() {
-		const testSongs = JSON.parse(sessionStorage.getItem('tracks'));
-		if (testSongs) {
-			const JSX = testSongs.short_term_tracks.map((song, i) => (
-				<div key={song.id} className="song">
-					<div className="image">
-						<img src={song.album.images[0].url} alt="" />
-						<div className="number">{i + 1}.</div>
-						<div className="artist-name">{song.artists[0].name}</div>
-						<div className="song-title">{song.name}</div>
-					</div>
-				</div>
-			));
-
-			return <div>{JSX}</div>;
+		if (this.state.loading) {
+			return null;
 		}
-		else {
-			return <div />;
+		let data;
+		switch (this.props.type) {
+			case 'artists':
+				data = JSON.parse(sessionStorage.getItem('artists'));
+				if (data) {
+					let artists;
+					switch (this.props.duration) {
+						case 'short_term':
+							artists = data.short_term_artists;
+							break;
+						case 'medium_term':
+							artists = data.medium_term_artists;
+							break;
+						default:
+							artists = data.long_term_artists;
+					}
+					const JSX = artists.map((artist, i) => (
+						<div key={artist.id} className="song">
+							<div className="image">
+								{artist.images[0] ? <img src={artist.images[0].url} alt="" /> : null}
+								<div className="number">{i + 1}.</div>
+								<div className="song-title">{artist.name}</div>
+							</div>
+						</div>
+					));
+
+					return <div>{JSX}</div>;
+				}
+				else {
+					return <div />;
+				}
+			default:
+				data = JSON.parse(sessionStorage.getItem('tracks'));
+				if (data) {
+					let tracks;
+					switch (this.props.duration) {
+						case 'short_term':
+							tracks = data.short_term_tracks;
+							break;
+						case 'medium_term':
+							tracks = data.medium_term_tracks;
+							break;
+						default:
+							tracks = data.long_term_tracks;
+					}
+					const JSX = tracks.map((track, i) => (
+						<div key={track.id} className="song">
+							<div className="image">
+								<img src={track.album.images[0].url} alt="" />
+								<div className="number">{i + 1}.</div>
+								<div className="artist-name">{track.artists[0].name}</div>
+								<div className="song-title">{track.name}</div>
+							</div>
+						</div>
+					));
+
+					return <div>{JSX}</div>;
+				}
+				else {
+					return <div />;
+				}
 		}
 	}
 }

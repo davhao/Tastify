@@ -3,12 +3,21 @@ import { Button } from 'reactstrap';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 export default class CreateLinkButton extends Component {
+	state = {
+		mongoID : null
+	};
+
+	componentDidUpdate(prevProps, prevState) {
+		if (prevState.mongoID !== this.props.mongoID) {
+			this.setState({
+				mongoID : this.props.mongoID
+			});
+		}
+	}
 	render() {
 		return (
-			<CopyToClipboard text={`localhost:3000/?id=${this.props.mongoID}`}>
-				<Button className="main-btn" onClick={this.props.showSongsHandler}>
-					Generate Link
-				</Button>
+			<CopyToClipboard text={`localhost:3000/?id=${this.state.mongoID}`}>
+				<Button className="main-btn">Generate Link</Button>
 			</CopyToClipboard>
 		);
 	}

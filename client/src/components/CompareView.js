@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Row, Col } from 'reactstrap';
 import SongsToCompare from './SongsToCompare';
 import MutualSongs from './MutualSongs';
-import Songs from './Songs';
+import Data from './Data';
 
 export default class CompareView extends Component {
 	render() {
@@ -12,7 +12,7 @@ export default class CompareView extends Component {
 					<Col className="sm">
 						<div>
 							<div className="col-title">Your Songs</div>
-							<Songs access_token={this.props.access_token} updateMongoID={this.props.updateMongoID} />
+							<Data access_token={this.props.access_token} updateMongoID={this.props.updateMongoID} />
 						</div>
 					</Col>
 					<Col>

@@ -15,7 +15,15 @@ export default function DataTypeDropdown(props) {
 	const toggle = () => setOpen(!dropdownOpen);
 
 	const select = (selection) => {
-		selectOption(selection.target.innerText);
+		const text = selection.target.innerText;
+		selectOption(text);
+		switch (text) {
+			case 'Tracks':
+				props.setType('tracks');
+				break;
+			default:
+				props.setType('artists');
+		}
 	};
 
 	return (

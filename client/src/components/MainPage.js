@@ -14,15 +14,12 @@ const qs = require('query-string');
 
 export default class MainPage extends Component {
 	state = {
-		access_token   : qs.parse(this.props.location.search).access_token,
-		showSongs      : false,
-		compareSongs   : false,
-		mongoID        : null,
-		sharedMongoID  : null,
-		userSongs      : null,
-		otherUserSongs : null,
-		mutualSongs    : null,
-		view           : 'single'
+		access_token  : qs.parse(this.props.location.search).access_token,
+		mongoID       : null,
+		sharedMongoID : null,
+		view          : 'single',
+		duration      : 'medium_term',
+		type          : 'tracks'
 	};
 
 	componentDidMount = () => {
@@ -51,7 +48,15 @@ export default class MainPage extends Component {
 	};
 
 	setDuration = (duration) => {
-		console.log(duration);
+		this.setState({
+			duration : duration
+		});
+	};
+
+	setType = (type) => {
+		this.setState({
+			type : type
+		});
 	};
 
 	render() {
@@ -61,13 +66,21 @@ export default class MainPage extends Component {
 					<AppNavbar />
 				</div>
 
-				<div className="btn-drpdwns">
-					<DurationDropdown setDuration={this.setDuration} />
-					<DataTypeDropdown />
+				<div>
+					{this.state.access_token ? (
+						<div className="btn-drpdwns">
+							<DurationDropdown setDuration={this.setDuration} />
+							<DataTypeDropdown setType={this.setType} />
+						</div>
+					) : null}
 				</div>
 
-				<div className="link-btn-wrapper">
-					<CreateLinkButton mongoID={this.state.mongoID} />
+				<div>
+					{this.state.access_token ? (
+						<div className="link-btn-wrapper">
+							<CreateLinkButton mongoID={this.state.mongoID} />
+						</div>
+					) : null}
 				</div>
 
 				<div>
@@ -75,7 +88,8 @@ export default class MainPage extends Component {
 						<SingleView
 							access_token={this.state.access_token}
 							updateMongoID={this.updateMongoID}
-							updateUserSongs={this.updateUserSongs}
+							duration={this.state.duration}
+							type={this.state.type}
 						/>
 					) : null}
 				</div>
@@ -85,6 +99,7 @@ export default class MainPage extends Component {
 							access_token={this.state.access_token}
 							updateMongoID={this.updateMongoID}
 							sharedMongoID={this.state.sharedMongoID}
+							duration={this.state.duration}
 						/>
 					) : null}
 				</div>
