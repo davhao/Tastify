@@ -100,6 +100,7 @@ export default class MainPage extends Component {
 							updateMongoID={this.updateMongoID}
 							sharedMongoID={this.state.sharedMongoID}
 							duration={this.state.duration}
+							type={this.state.type}
 						/>
 					) : null}
 				</div>
