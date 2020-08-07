@@ -16,7 +16,7 @@ export default class CreateLinkButton extends Component {
 	}
 	render() {
 		return (
-			<CopyToClipboard text={`localhost:3000/?id=${this.state.mongoID}`}>
+			<CopyToClipboard text={`https://david-hao-tastify.herokuapp.com/?id=${this.state.mongoID}`}>
 				<Button className="main-btn">Generate Link</Button>
 			</CopyToClipboard>
 		);
