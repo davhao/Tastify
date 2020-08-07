@@ -2,22 +2,21 @@ import React, { Component } from 'react';
 import '../App.css';
 const axios = require('axios');
 
-export default class Data extends Component {
-	state = {
-		mongoID : null,
-		loading : true
-	};
-
+export default class DataToCompare extends Component {
 	async componentDidMount() {
-		const short_term_tracks = await this.getData(`short_term`, 'tracks');
-		const medium_term_tracks = await this.getData(`medium_term`, 'tracks');
-		const long_term_tracks = await this.getData(`long_term`, 'tracks');
-		const short_term_artists = await this.getData(`short_term`, 'artists');
-		const medium_term_artists = await this.getData(`medium_term`, 'artists');
-		const long_term_artists = await this.getData(`long_term`, 'artists');
+		const mongoID = this.props.sharedMongoID;
+		const res = await axios.get(`api/users/${mongoID}`);
+
+		// Store songs to compare in sessionStorage
+		const short_term_tracks = res.data.result.short_term_tracks;
+		const medium_term_tracks = res.data.result.medium_term_tracks;
+		const long_term_tracks = res.data.result.long_term_tracks;
+		const short_term_artists = res.data.result.short_term_artists;
+		const medium_term_artists = res.data.result.medium_term_artists;
+		const long_term_artists = res.data.result.long_term_artists;
 
 		sessionStorage.setItem(
-			'tracks',
+			'compare_tracks',
 			JSON.stringify({
 				short_term_tracks  : short_term_tracks,
 				medium_term_tracks : medium_term_tracks,
@@ -25,77 +24,20 @@ export default class Data extends Component {
 			})
 		);
 		sessionStorage.setItem(
-			'artists',
+			'compare_artists',
 			JSON.stringify({
 				short_term_artists  : short_term_artists,
 				medium_term_artists : medium_term_artists,
 				long_term_artists   : long_term_artists
 			})
 		);
-
-		this.setState({
-			loading : false
-		});
-
-		// Headers
-		const config = {
-			headers : {
-				'Content-Type' : 'application/json'
-			}
-		};
-
-		// Request Body
-		const body = JSON.stringify({
-			short_term_tracks   : short_term_tracks,
-			medium_term_tracks  : medium_term_tracks,
-			long_term_tracks    : long_term_tracks,
-			short_term_artists  : short_term_artists,
-			medium_term_artists : medium_term_artists,
-			long_term_artists   : long_term_artists
-		});
-
-		// Send songs to database
-		const res = await axios.post('/api/users', body, config);
-		this.props.updateMongoID(res.data._id);
-		this.setState({
-			mongoID : res.data._id
-		});
-	}
-
-	async getData(time_range, type) {
-		const token = this.props.access_token;
-		let array = [];
-		for (let i = 0; i <= 49; i += 49) {
-			if (array.length) {
-				array.pop();
-			}
-			const config = {
-				headers : {
-					Accept         : 'application/json',
-					'Content-Type' : 'application/json',
-					Authorization  : `Bearer ${token}`
-				},
-				params  : {
-					time_range : time_range,
-					limit      : 50,
-					offset     : i
-				}
-			};
-
-			const response = await axios.get(`https://api.spotify.com/v1/me/top/${type}`, config);
-			array = array.concat(response.data.items);
-		}
-		return array;
 	}
 
 	render() {
-		if (this.state.loading) {
-			return null;
-		}
 		let data;
 		switch (this.props.type) {
 			case 'artists':
-				data = JSON.parse(sessionStorage.getItem('artists'));
+				data = JSON.parse(sessionStorage.getItem('compare_artists'));
 				if (data) {
 					let artists;
 					switch (this.props.duration) {
@@ -129,7 +71,7 @@ export default class Data extends Component {
 					return null;
 				}
 			default:
-				data = JSON.parse(sessionStorage.getItem('tracks'));
+				data = JSON.parse(sessionStorage.getItem('compare_tracks'));
 				if (data) {
 					let tracks;
 					switch (this.props.duration) {
