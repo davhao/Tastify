@@ -95,7 +95,7 @@ router.get('/callback', async (req, res) => {
 			);
 			const { access_token, refresh_token } = spotifyRes.data;
 			res.redirect(
-				'http://localhost:3000/?' +
+				'https://david-hao-tastify.herokuapp.com/?' +
 					querystring.stringify({
 						access_token  : access_token,
 						refresh_token : refresh_token
@@ -103,7 +103,7 @@ router.get('/callback', async (req, res) => {
 			);
 		} catch (error) {
 			res.redirect(
-				'http://localhost:3000/?' +
+				'https://david-hao-tastify.herokuapp.com/?' +
 					querystring.stringify({
 						error : 'invalid_token'
 					})
