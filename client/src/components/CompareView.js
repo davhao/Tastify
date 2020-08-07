@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Row, Col } from 'reactstrap';
 import SongsToCompare from './SongsToCompare';
 import MutualSongs from './MutualSongs';
-import Songs from './Songs';
+import Data from './Data';
 
 export default class CompareView extends Component {
 	render() {
@@ -12,31 +12,23 @@ export default class CompareView extends Component {
 					<Col className="sm">
 						<div>
 							<div className="col-title">Your Songs</div>
-							<Songs
-								access_token={this.props.access_token}
-								updateMongoID={this.props.updateMongoID}
-								updateUserSongs={this.props.updateUserSongs}
-							/>
+							<Data access_token={this.props.access_token} updateMongoID={this.props.updateMongoID} />
 						</div>
 					</Col>
 					<Col>
-						{this.props.otherUserSongs && this.props.userSongs ? (
-							<div>
-								<div className="col-title">Mutual Songs</div>
-								<MutualSongs
-									userSongs={this.props.userSongs}
-									otherUserSongs={this.props.otherUserSongs}
-								/>
-							</div>
-						) : null}
+						<div>
+							<div className="col-title">Mutual Songs</div>
+							{sessionStorage.getItem('tracks') && sessionStorage.getItem('compare_tracks') ? (
+								<div>
+									<MutualSongs />
+								</div>
+							) : null}
+						</div>
 					</Col>
 					<Col>
 						<div>
 							<div className="col-title">Their Songs</div>
-							<SongsToCompare
-								sharedMongoID={this.props.sharedMongoID}
-								updateOtherUserSongs={this.props.updateOtherUserSongs}
-							/>
+							<SongsToCompare sharedMongoID={this.props.sharedMongoID} />
 						</div>
 					</Col>
 				</Row>

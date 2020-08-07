@@ -37,11 +37,23 @@ body {
 	bottom: 30%;
 }
 
+.link-btn-wrapper {
+	display: flex;
+	justify-content: center;
+	margin-top: .5rem;
+	margin-bottom: .5rem;
+}
+
 /* Button Dropdowns */
 .btn-drpdwns {
 	display: flex;
 	width: 100%;
 	justify-content: center;
+}
+
+.btn-drpdwn {
+	background-color: #1db954;
+	border: 0px solid transparent;
 }
 
 /* --------------------------- Columns -------------------------------- */

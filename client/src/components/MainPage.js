@@ -14,15 +14,12 @@ const qs = require('query-string');
 
 export default class MainPage extends Component {
 	state = {
-		access_token   : qs.parse(this.props.location.search).access_token,
-		showSongs      : false,
-		compareSongs   : false,
-		mongoID        : null,
-		sharedMongoID  : null,
-		userSongs      : null,
-		otherUserSongs : null,
-		mutualSongs    : null,
-		view           : 'single'
+		access_token  : qs.parse(this.props.location.search).access_token,
+		mongoID       : null,
+		sharedMongoID : null,
+		view          : 'single',
+		duration      : 'medium_term',
+		type          : 'tracks'
 	};
 
 	componentDidMount = () => {
@@ -38,42 +35,9 @@ export default class MainPage extends Component {
 		}
 	};
 
-	showSongsHandler = () => {
-		this.setState({
-			showSongs : true
-		});
-	};
-
-	compareSongsHandler = () => {
-		this.setState({
-			compareSongs : true
-		});
-	};
-
 	updateMongoID = (mongoID) => {
 		this.setState({
 			mongoID : mongoID
-		});
-	};
-
-	// HashMap of User's Songs
-	updateUserSongs = (songs) => {
-		this.setState({
-			userSongs : songs
-		});
-	};
-
-	// HashMap of Other User's Songs
-	updateOtherUserSongs = (songs) => {
-		this.setState({
-			otherUserSongs : songs
-		});
-	};
-
-	// Array of Songs Mutual To Both Users
-	updateMutualSongs = (songs) => {
-		this.setState({
-			mutualSongs : songs
 		});
 	};
 
@@ -84,7 +48,15 @@ export default class MainPage extends Component {
 	};
 
 	setDuration = (duration) => {
-		console.log(duration);
+		this.setState({
+			duration : duration
+		});
+	};
+
+	setType = (type) => {
+		this.setState({
+			type : type
+		});
 	};
 
 	render() {
@@ -94,13 +66,21 @@ export default class MainPage extends Component {
 					<AppNavbar />
 				</div>
 
-				<div className="btn-drpdwns">
-					<DurationDropdown setDuration={this.setDuration} />
-					<DataTypeDropdown />
+				<div>
+					{this.state.access_token ? (
+						<div className="btn-drpdwns">
+							<DurationDropdown setDuration={this.setDuration} />
+							<DataTypeDropdown setType={this.setType} />
+						</div>
+					) : null}
 				</div>
 
-				<div className="btn-div">
-					{this.state.mongoID ? <CreateLinkButton mongoID={this.state.mongoID} /> : null}
+				<div>
+					{this.state.access_token ? (
+						<div className="link-btn-wrapper">
+							<CreateLinkButton mongoID={this.state.mongoID} />
+						</div>
+					) : null}
 				</div>
 
 				<div>
@@ -108,23 +88,18 @@ export default class MainPage extends Component {
 						<SingleView
 							access_token={this.state.access_token}
 							updateMongoID={this.updateMongoID}
-							updateUserSongs={this.updateUserSongs}
+							duration={this.state.duration}
+							type={this.state.type}
 						/>
 					) : null}
 				</div>
 				<div>
 					{this.state.view === 'compare' ? (
 						<CompareView
-							showSongs={this.state.showSongs}
-							compareSongs={this.state.compareSongs}
 							access_token={this.state.access_token}
 							updateMongoID={this.updateMongoID}
-							updateUserSongs={this.updateUserSongs}
-							otherUserSongs={this.state.otherUserSongs}
-							userSongs={this.state.userSongs}
-							updateMutualSongs={this.updateMutualSongs}
 							sharedMongoID={this.state.sharedMongoID}
-							updateOtherUserSongs={this.updateOtherUserSongs}
+							duration={this.state.duration}
 						/>
 					) : null}
 				</div>

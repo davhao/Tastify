@@ -24,16 +24,16 @@ export default function DurationDropdown(props) {
 			case 'Last 6 Months':
 				duration = 'medium_term';
 				break;
-			case 'All Time':
+			default:
 				duration = 'long_term';
 		}
 		props.setDuration(duration);
 	};
 
 	return (
-		<div className="btn-drpdwn">
+		<div className="btn-drpdwn-wrapper">
 			<ButtonDropdown isOpen={dropdownOpen} toggle={toggle}>
-				<DropdownToggle caret size="sm">
+				<DropdownToggle className="btn-drpdwn" caret size="sm">
 					{selection}
 				</DropdownToggle>
 				<DropdownMenu>
