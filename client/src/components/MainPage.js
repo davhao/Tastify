@@ -19,7 +19,8 @@ export default class MainPage extends Component {
 		sharedMongoID : null,
 		view          : 'single',
 		duration      : 'medium_term',
-		type          : 'tracks'
+		type          : 'tracks',
+		url           : 'https://david-hao-tastify.herokuapp.com'
 	};
 
 	componentDidMount = () => {
@@ -78,7 +79,7 @@ export default class MainPage extends Component {
 				<div>
 					{this.state.access_token ? (
 						<div className="link-btn-wrapper">
-							<CreateLinkButton mongoID={this.state.mongoID} />
+							<CreateLinkButton mongoID={this.state.mongoID} url={this.state.url} />
 						</div>
 					) : null}
 				</div>
@@ -105,7 +106,9 @@ export default class MainPage extends Component {
 					) : null}
 				</div>
 
-				<div className="login-btn">{!this.state.access_token ? <LoginButton /> : null}</div>
+				<div className="login-btn">
+					{!this.state.access_token ? <LoginButton url={this.state.url} /> : null}
+				</div>
 			</div>
 		);
 	}
