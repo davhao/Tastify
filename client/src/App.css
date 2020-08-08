@@ -147,8 +147,7 @@ img {
 .name-shadow,
 .artist-shadow,
 .number-shadow {
-	color: black;
-	opacity: 75%;
+	color: rgb(0, 0, 0, .75);
 	font-size: 5.4px;
 }
 

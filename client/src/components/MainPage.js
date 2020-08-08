@@ -20,7 +20,10 @@ export default class MainPage extends Component {
 		view          : 'single',
 		duration      : 'medium_term',
 		type          : 'tracks',
-		url           : 'https://david-hao-tastify.herokuapp.com'
+		url           : 'https://david-hao-tastify.herokuapp.com',
+		serverUrl     : 'https://david-hao-tastify.herokuapp.com'
+		// url           : 'http://localhost:3000',
+		// serverUrl     : 'http://localhost:5000'
 	};
 
 	componentDidMount = () => {
@@ -107,7 +110,7 @@ export default class MainPage extends Component {
 				</div>
 
 				<div className="login-btn">
-					{!this.state.access_token ? <LoginButton url={this.state.url} /> : null}
+					{!this.state.access_token ? <LoginButton url={this.state.serverUrl} /> : null}
 				</div>
 			</div>
 		);
