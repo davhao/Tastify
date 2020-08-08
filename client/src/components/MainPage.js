@@ -20,8 +20,8 @@ export default class MainPage extends Component {
 		view          : 'single',
 		duration      : 'medium_term',
 		type          : 'tracks',
-		url           : 'https://david-hao-tastify.herokuapp.com',
-		serverUrl     : 'https://david-hao-tastify.herokuapp.com'
+		url           : 'http://tastify.io',
+		serverUrl     : 'http://tastify.io'
 		// url           : 'http://localhost:3000',
 		// serverUrl     : 'http://localhost:5000'
 	};

@@ -2,9 +2,9 @@ module.exports = {
 	mongoURI      : process.env.mongoURI,
 	client_id     : process.env.client_id,
 	client_secret : process.env.client_secret,
-	redirect_uri  : `https://david-hao-tastify.herokuapp.com/api/login/callback`,
+	redirect_uri  : `http://tastify.io/api/login/callback`,
 	scopes        : process.env.scopes,
-	url           : `https://david-hao-tastify.herokuapp.com`
+	url           : `http://tastify.io`
 };
 
 // module.exports = {
