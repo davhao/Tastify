@@ -60,7 +60,9 @@ export default class MutualData extends Component {
 						<div key={artist.id} className="song">
 							<div className="image">
 								{artist.images[0] ? <img src={artist.images[0].url} alt="" /> : null}
+								<div className="number-shadow">{i + 1}.</div>
 								<div className="number">{i + 1}.</div>
+								<div className="name-shadow">{artist.name}</div>
 								<div className="song-title">{artist.name}</div>
 							</div>
 						</div>
@@ -71,8 +73,11 @@ export default class MutualData extends Component {
 						<div key={track.id} className="song">
 							<div className="image">
 								<img src={track.album.images[0].url} alt="" />
+								<div className="number-shadow">{i + 1}.</div>
 								<div className="number">{i + 1}.</div>
+								<div className="artist-shadow">{track.artists[0].name}</div>
 								<div className="artist-name">{track.artists[0].name}</div>
+								<div className="name-shadow">{track.name}</div>
 								<div className="song-title">{track.name}</div>
 							</div>
 						</div>

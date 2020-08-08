@@ -58,8 +58,10 @@ export default class DataToCompare extends Component {
 								) : (
 									<img src={require('../no-image.png')} alt="" />
 								)}
+								<div className="number-shadow">{i + 1}.</div>
 								<div className="number">{i + 1}.</div>
 								{artist.images[0] ? null : <div className="no-image">No Image</div>}
+								<div className="name-shadow">{artist.name}</div>
 								<div className="song-title">{artist.name}</div>
 							</div>
 						</div>
@@ -88,8 +90,11 @@ export default class DataToCompare extends Component {
 						<div key={track.id} className="song">
 							<div className="image">
 								<img src={track.album.images[0].url} alt="" />
+								<div className="number-shadow">{i + 1}.</div>
 								<div className="number">{i + 1}.</div>
+								<div className="artist-shadow">{track.artists[0].name}</div>
 								<div className="artist-name">{track.artists[0].name}</div>
+								<div className="name-shadow">{track.name}</div>
 								<div className="song-title">{track.name}</div>
 							</div>
 						</div>

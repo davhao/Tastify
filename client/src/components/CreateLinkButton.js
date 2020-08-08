@@ -4,7 +4,8 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 export default class CreateLinkButton extends Component {
 	state = {
-		mongoID : null
+		mongoID : null,
+		copied  : false
 	};
 
 	componentDidUpdate(prevProps, prevState) {
@@ -14,10 +15,25 @@ export default class CreateLinkButton extends Component {
 			});
 		}
 	}
+
+	switchText = () => {
+		if (this.state.mongoID) {
+			this.setState({
+				copied : true
+			});
+		}
+	};
+
 	render() {
 		return (
 			<CopyToClipboard text={`https://david-hao-tastify.herokuapp.com/?id=${this.state.mongoID}`}>
-				<Button className="main-btn">Generate Link</Button>
+				{this.state.copied ? (
+					<Button className="main-btn">Link Copied!</Button>
+				) : (
+					<Button className="main-btn" onClick={this.switchText}>
+						Share Link
+					</Button>
+				)}
 			</CopyToClipboard>
 		);
 	}

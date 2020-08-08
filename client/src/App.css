@@ -113,16 +113,43 @@ img {
 	bottom: 1px;
 	left: 1.5px;
 }
+
+.name-shadow {
+	position: absolute;
+	bottom: .6px;
+	left: 1.8px;
+}
+
 .artist-name {
 	position: absolute;
 	bottom: 7px;
 	left: 1.5px;
 }
 
+.artist-shadow {
+	position: absolute;
+	bottom: 6.6px;
+	left: 1.8px;
+}
+
 .number {
 	position: absolute;
 	top: 1.5px;
 	left: 2px;
+}
+
+.number-shadow {
+	position: absolute;
+	top: 1.9px;
+	left: 2.3px;
+}
+
+.name-shadow,
+.artist-shadow,
+.number-shadow {
+	color: black;
+	opacity: 75%;
+	font-size: 5.4px;
 }
 
 .no-image {
@@ -136,5 +163,5 @@ img {
 	text-align: left;
 	color: white;
 	font-size: 5px;
-	text-shadow: .25px .25px .75px #000000;
+	text-shadow: .5px .5px .75px #000000;
 }

@@ -6,7 +6,7 @@ const axios = require('axios');
 const randomString = require('crypto-random-string');
 const querystring = require('querystring');
 
-const { client_id, client_secret, redirect_uri, scopes } = require('../../config/keys');
+const { client_id, url, redirect_uri, scopes } = require('../../config/keys');
 
 // User Model
 const User = require('../../models/User');
@@ -95,7 +95,7 @@ router.get('/callback', async (req, res) => {
 			);
 			const { access_token, refresh_token } = spotifyRes.data;
 			res.redirect(
-				'https://david-hao-tastify.herokuapp.com/?' +
+				`${url}/?` +
 					querystring.stringify({
 						access_token  : access_token,
 						refresh_token : refresh_token
@@ -103,7 +103,7 @@ router.get('/callback', async (req, res) => {
 			);
 		} catch (error) {
 			res.redirect(
-				'https://david-hao-tastify.herokuapp.com/?' +
+				`${url}/?` +
 					querystring.stringify({
 						error : 'invalid_token'
 					})
