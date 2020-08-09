@@ -85,7 +85,7 @@ body {
 	text-align: center;
 	font-weight: 600;
 	margin-bottom: 10px;
-	color: rgb(208 240 192);
+	color: rgb(208, 240, 192);
 }
 
 /* .wrapper-div {
@@ -108,6 +108,7 @@ img {
 	margin-right: auto;
 	width: 100%;
 	border-radius: 5px;
+	max-height: 6rem;
 }
 
 /* Song/Albumn text on images */
@@ -163,7 +164,7 @@ img {
 .image {
 	position: relative;
 	text-align: left;
-	color: white;
+	color: #ffffff;
 	font-size: 7px;
 	/* text-shadow: .5px .5px .75px #000000; */
 }
