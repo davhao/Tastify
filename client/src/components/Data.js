@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+// import { Spinner } from 'react-bootstrap';
 import '../App.css';
 const axios = require('axios');
 
@@ -90,79 +91,85 @@ export default class Data extends Component {
 
 	render() {
 		if (this.state.loading) {
+			// return <Spinner animation="grow" />;
 			return null;
 		}
-		let data;
-		switch (this.props.type) {
-			case 'artists':
-				data = JSON.parse(sessionStorage.getItem('artists'));
-				if (data) {
-					let artists;
-					switch (this.props.duration) {
-						case 'short_term':
-							artists = data.short_term_artists;
-							break;
-						case 'medium_term':
-							artists = data.medium_term_artists;
-							break;
-						default:
-							artists = data.long_term_artists;
-					}
-					const JSX = artists.map((artist, i) => (
-						<div key={artist.id} className="song">
-							<div className="image">
-								{artist.images[0] ? (
-									<img src={artist.images[0].url} alt="" />
-								) : (
-									<img src={require('../no-image.png')} alt="" />
-								)}
-								<div className="number-shadow">{i + 1}.</div>
-								<div className="number">{i + 1}.</div>
-								{artist.images[0] ? null : <div className="no-image">No Image</div>}
-								<div className="name-shadow">{artist.name}</div>
-								<div className="song-title">{artist.name}</div>
+		else {
+			let data;
+			// if (this.props.setYourTracksLoading) {
+			// 	this.props.setYourTracksLoading();
+			// }
+			switch (this.props.type) {
+				case 'artists':
+					data = JSON.parse(sessionStorage.getItem('artists'));
+					if (data) {
+						let artists;
+						switch (this.props.duration) {
+							case 'short_term':
+								artists = data.short_term_artists;
+								break;
+							case 'medium_term':
+								artists = data.medium_term_artists;
+								break;
+							default:
+								artists = data.long_term_artists;
+						}
+						const JSX = artists.map((artist, i) => (
+							<div key={artist.id} className="song">
+								<div className="image">
+									{artist.images[0] ? (
+										<img src={artist.images[0].url} alt="" />
+									) : (
+										<img src={require('../no-image.png')} alt="" />
+									)}
+									<div className="number-shadow">{i + 1}.</div>
+									<div className="number">{i + 1}.</div>
+									{artist.images[0] ? null : <div className="no-image">No Image</div>}
+									<div className="name-shadow">{artist.name}</div>
+									<div className="song-title">{artist.name}</div>
+								</div>
 							</div>
-						</div>
-					));
+						));
 
-					return <div>{JSX}</div>;
-				}
-				else {
-					return null;
-				}
-			default:
-				data = JSON.parse(sessionStorage.getItem('tracks'));
-				if (data) {
-					let tracks;
-					switch (this.props.duration) {
-						case 'short_term':
-							tracks = data.short_term_tracks;
-							break;
-						case 'medium_term':
-							tracks = data.medium_term_tracks;
-							break;
-						default:
-							tracks = data.long_term_tracks;
+						return <div>{JSX}</div>;
 					}
-					const JSX = tracks.map((track, i) => (
-						<div key={track.id} className="song">
-							<div className="image">
-								<img src={track.album.images[0].url} alt="" />
-								<div className="number-shadow">{i + 1}.</div>
-								<div className="number">{i + 1}.</div>
-								<div className="artist-shadow">{track.artists[0].name}</div>
-								<div className="artist-name">{track.artists[0].name}</div>
-								<div className="name-shadow">{track.name}</div>
-								<div className="song-title">{track.name}</div>
+					else {
+						return null;
+					}
+				default:
+					data = JSON.parse(sessionStorage.getItem('tracks'));
+					if (data) {
+						let tracks;
+						switch (this.props.duration) {
+							case 'short_term':
+								tracks = data.short_term_tracks;
+								break;
+							case 'medium_term':
+								tracks = data.medium_term_tracks;
+								break;
+							default:
+								tracks = data.long_term_tracks;
+						}
+						const JSX = tracks.map((track, i) => (
+							<div key={track.id} className="song">
+								<div className="image">
+									<img src={track.album.images[0].url} alt="" />
+									<div className="number-shadow">{i + 1}.</div>
+									<div className="number">{i + 1}.</div>
+									<div className="artist-shadow">{track.artists[0].name}</div>
+									<div className="artist-name">{track.artists[0].name}</div>
+									<div className="name-shadow">{track.name}</div>
+									<div className="song-title">{track.name}</div>
+								</div>
 							</div>
-						</div>
-					));
+						));
 
-					return <div>{JSX}</div>;
-				}
-				else {
-					return null;
-				}
+						return <div>{JSX}</div>;
+					}
+					else {
+						return null;
+					}
+			}
 		}
 	}
 }

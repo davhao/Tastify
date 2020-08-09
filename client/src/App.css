@@ -5,7 +5,7 @@
 }
 
 body {
-	background-color: #62a4f6;
+	background-color: rgb(52, 58, 64, .85);
 }
 
 /* ------------------------ Buttons ----------------------- */
@@ -82,20 +82,24 @@ body {
 
 /* Caption Above Columns */
 .col-title {
-	font-size: small;
 	text-align: center;
-	font-weight: bold;
+	font-weight: 600;
 	margin-bottom: 10px;
-	color: #f7e96f;
+	color: rgb(208 240 192);
 }
+
+/* .wrapper-div {
+	width: fit-content;
+} */
 
 /* ----------------------- STUFF RELATED TO SONGS ------------------------- */
 .song {
 	text-align: center;
 	margin-left: auto;
 	margin-right: auto;
-	width: 75px;
-	height: 80px;
+	width: 6rem;
+	height: 6rem;
+	margin-bottom: .5rem;
 }
 
 img {
@@ -104,7 +108,6 @@ img {
 	margin-right: auto;
 	width: 100%;
 	border-radius: 5px;
-	max-height: 75px;
 }
 
 /* Song/Albumn text on images */
@@ -148,7 +151,7 @@ img {
 .artist-shadow,
 .number-shadow {
 	color: rgb(0, 0, 0, .75);
-	font-size: 5.4px;
+	font-size: 1.05em;
 }
 
 .no-image {
@@ -161,6 +164,6 @@ img {
 	position: relative;
 	text-align: left;
 	color: white;
-	font-size: 5px;
+	font-size: 7px;
 	/* text-shadow: .5px .5px .75px #000000; */
 }

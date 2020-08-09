@@ -52,6 +52,7 @@ export default class MutualData extends Component {
 					mutualData.push(item);
 				}
 			});
+
 			let JSX;
 
 			switch (this.props.type) {
