@@ -2,7 +2,7 @@
 Web app that tastefully compares two users' music tastes.
 
 ## Description
-Tastify compares two Spotify users' favorite tracks and artists side-by-side. 
+[Tastify](http://tastify.io) compares two Spotify users' favorite tracks and artists side-by-side. 
 
 ### Background
 Recently, there has been a rise in Spotify web apps that display a single user's top tracks and artists. Most notable to me, Alex White's Spotify Collage Generator 
