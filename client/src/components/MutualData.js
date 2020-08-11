@@ -2,7 +2,30 @@ import React, { Component } from 'react';
 import '../App.css';
 
 export default class MutualData extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			isDesktop : false
+		};
+
+		this.updatePredicate = this.updatePredicate.bind(this);
+	}
+
+	componentDidMount() {
+		this.updatePredicate();
+		window.addEventListener('resize', this.updatePredicate);
+	}
+
+	componentWillUnmount() {
+		window.removeEventListener('resize', this.updatePredicate);
+	}
+
+	updatePredicate() {
+		this.setState({ isDesktop: window.innerWidth > 500 });
+	}
+
 	render() {
+		const isDesktop = this.state.isDesktop;
 		const mutualData = [];
 		const dataMap = new Map();
 		let data, compareData;
@@ -60,10 +83,15 @@ export default class MutualData extends Component {
 					JSX = mutualData.map((artist, i) => (
 						<div key={artist.id} className="song">
 							<div className="image">
-								{artist.images[0] ? <img src={artist.images[0].url} alt="" /> : null}
-								<div className="number-shadow">{i + 1}.</div>
+								{artist.images[0] ? (
+									<img src={artist.images[0].url} alt="" />
+								) : (
+									<img src={require('../no-image.png')} alt="" />
+								)}
+								{isDesktop ? null : <div className="number-shadow">{i + 1}.</div>}
 								<div className="number">{i + 1}.</div>
-								<div className="name-shadow">{artist.name}</div>
+								{artist.images[0] ? null : <div className="no-image">No Image</div>}
+								{isDesktop ? null : <div className="name-shadow">{artist.name}</div>}
 								<div className="song-title">{artist.name}</div>
 							</div>
 						</div>
@@ -74,11 +102,11 @@ export default class MutualData extends Component {
 						<div key={track.id} className="song">
 							<div className="image">
 								<img src={track.album.images[0].url} alt="" />
-								<div className="number-shadow">{i + 1}.</div>
+								{isDesktop ? null : <div className="number-shadow">{i + 1}.</div>}
 								<div className="number">{i + 1}.</div>
-								<div className="artist-shadow">{track.artists[0].name}</div>
+								{isDesktop ? null : <div className="artist-shadow">{track.artists[0].name}</div>}
 								<div className="artist-name">{track.artists[0].name}</div>
-								<div className="name-shadow">{track.name}</div>
+								{isDesktop ? null : <div className="name-shadow">{track.name}</div>}
 								<div className="song-title">{track.name}</div>
 							</div>
 						</div>

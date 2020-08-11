@@ -108,31 +108,30 @@ img {
 	margin-right: auto;
 	width: 100%;
 	border-radius: 5px;
-	max-height: 6rem;
 }
 
 /* Song/Albumn text on images */
 .song-title {
 	position: absolute;
-	bottom: 1px;
+	bottom: .1rem;
 	left: 1.5px;
 }
 
 .name-shadow {
 	position: absolute;
-	bottom: .6px;
+	bottom: .07rem;
 	left: 1.8px;
 }
 
 .artist-name {
 	position: absolute;
-	bottom: 7px;
+	bottom: .55rem;
 	left: 1.5px;
 }
 
 .artist-shadow {
 	position: absolute;
-	bottom: 6.6px;
+	bottom: .5rem;
 	left: 1.8px;
 }
 
@@ -155,6 +154,15 @@ img {
 	font-size: 1.05em;
 }
 
+.artist-shadow,
+.artist-name,
+.name-shadow,
+.song-title {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: 95%;
+}
+
 .no-image {
 	position: absolute;
 	bottom: 44%;
@@ -166,5 +174,29 @@ img {
 	text-align: left;
 	color: #ffffff;
 	font-size: 7px;
-	/* text-shadow: .5px .5px .75px #000000; */
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	text-shadow: .5px .5px .75px #000000;
+	max-height: 6rem;
+}
+
+@media only screen and (min-width: 600px) {
+	.col-title {
+		font-size: xx-large;
+	}
+
+	.song {
+		width: 10rem;
+		height: 10rem;
+	}
+
+	.image {
+		max-height: 10rem;
+		font-size: 11px;
+	}
+
+	.artist-name {
+		bottom: 1rem;
+	}
 }

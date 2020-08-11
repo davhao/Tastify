@@ -20,10 +20,10 @@ export default class MainPage extends Component {
 		view          : 'single',
 		duration      : 'medium_term',
 		type          : 'tracks',
-		url           : 'http://www.tastify.io',
-		serverUrl     : 'http://www.tastify.io'
-		// url           : 'http://localhost:3000',
-		// serverUrl     : 'http://localhost:5000'
+		// url           : 'http://www.tastify.io',
+		// serverUrl     : 'http://www.tastify.io'
+		url           : 'http://localhost:3000',
+		serverUrl     : 'http://localhost:5000'
 	};
 
 	componentDidMount = () => {

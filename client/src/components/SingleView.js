@@ -6,7 +6,11 @@ export default class SingleView extends Component {
 		return (
 			<div className="song-row-div">
 				<div>
-					<div className="col-title">Your Songs</div>
+					{this.props.type === 'tracks' ? (
+						<div className="col-title">Your Tracks</div>
+					) : (
+						<div className="col-title">Your Artists</div>
+					)}
 					<Data
 						access_token={this.props.access_token}
 						updateMongoID={this.props.updateMongoID}
