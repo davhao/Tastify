@@ -12,12 +12,18 @@ class AppNavbar extends Component {
 		});
 	};
 
+	reset = () => {
+		sessionStorage.clear();
+	};
+
 	render() {
 		return (
 			<div>
 				<Navbar color="dark" dark expand="sm" className="mb-5">
 					<Container>
-						<NavbarBrand href="/">Tastify</NavbarBrand>
+						<NavbarBrand href="/" onClick={this.reset}>
+							Tastify
+						</NavbarBrand>
 						<NavbarToggler onClick={this.toggle} />
 						<Collapse isOpen={this.state.isOpen} navbar>
 							<Nav className="ml-auto" navbar>

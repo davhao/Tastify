@@ -29,9 +29,13 @@ export default class CreateLinkButton extends Component {
 			<CopyToClipboard text={`${this.props.url}/?id=${this.state.mongoID}`}>
 				{this.state.copied ? (
 					<Button className="main-btn">Link Copied!</Button>
-				) : (
+				) : this.state.mongoID ? (
 					<Button className="main-btn" onClick={this.switchText}>
 						Share Link
+					</Button>
+				) : (
+					<Button className="main-btn" onClick={this.switchText}>
+						Generating Link
 					</Button>
 				)}
 			</CopyToClipboard>
