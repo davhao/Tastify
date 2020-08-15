@@ -22,7 +22,7 @@ Once shared, users can select between three time ranges and whether they want to
 ## Tech
 This project was built with the MERN stack.
 
-  **Fontend**: HTML, CSS, Javascript, React.js  
+  **Frontend**: HTML, CSS, Javascript, React.js  
   **Backend**: MongoDB, Express.js, Node.js
 
 Both the frontend and backend are hosted on Heroku.
