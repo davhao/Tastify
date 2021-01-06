@@ -14,7 +14,7 @@
 	"author": "David Hao",
 	"license": "MIT",
 	"dependencies": {
-		"axios": "^0.19.2",
+		"axios": "^0.21.1",
 		"concurrently": "^5.2.0",
 		"cookie-parser": "^1.4.5",
 		"crypto-random-string": "^3.2.0",
